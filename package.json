@@ -4,7 +4,8 @@
   "description": "Lean back and stare at what random Get Your Guide users are doing right now",
   "main": "build/index.js",
   "scripts": {
-    "start": "open index.html",
+    "start": "npm run build && open index.html",
+    "build": "webpack",
     "dev": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
