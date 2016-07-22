@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import GoogleMap from 'google-map-react';
 import styles from './Home.scss';
 
@@ -9,7 +10,7 @@ export default class Home extends Component {
     this.state = {};
   }
 
-  componentWillMount() {
+  fetchActivity() {
     const request = axios.get('https://www.getyourguide.com/touring.json?key=2Gr0p7z96D');
 
     request.then(response => {
@@ -31,6 +32,12 @@ export default class Home extends Component {
         });
       }
     });
+  }
+
+  componentWillMount() {
+    this.fetchActivity();
+
+    setInterval(() => this.fetchActivity(), 9250);
   }
 
   render() {
@@ -58,7 +65,12 @@ export default class Home extends Component {
           <div
             className={styles.image}
             style={imageStyle} />
-          <div className={styles.person}>{data.name}</div>
+          <div className={styles.activity}>
+            <span className={styles.brief}>
+              {data.activity}
+              <span className={styles.author}> — {data.name}</span>
+            </span>
+          </div>
           <div className={styles.map}>
             <GoogleMap
               bootstrapURLKeys={bootstrapURLKeys}

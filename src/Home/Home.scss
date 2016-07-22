@@ -23,7 +23,7 @@
   width: 150px;
 }
 
-.person {
+.activity {
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -34,10 +34,16 @@
   height: 20%;
   width: 100%;
   background-color: rgba(black, 0.25);
-  font-size: 10vh;
+  font-size: 7vh;
   font-family: 'Lato', 'Helvetica Neue', sans-serif;
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.2;
   text-align: center;
   color: rgba(white, 0.925);
+}
+
+.author {
+  font-size: 5.15vh;
+  white-space: nowrap;
+  color: rgba(222, 121, 103, 0.875);
 }
