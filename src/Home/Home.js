@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import GoogleMap from 'google-map-react';
 import styles from './Home.scss';
 
 export default class Home extends Component {
@@ -18,7 +19,15 @@ export default class Home extends Component {
         } = response;
 
         this.setState({
-          data
+          data: {
+            name: data.customerFirstName,
+            activity: data.activityTitle,
+            image: data.activityPictureUrl,
+            center: {
+              lat: data.activityCoordinateLatitude,
+              lng: data.activityCoordinateLongitude
+            }
+          }
         });
       }
     });
@@ -26,7 +35,7 @@ export default class Home extends Component {
 
   render() {
     const {
-      data
+      data = {}
     } = this.state;
 
     if (!data) {
@@ -36,16 +45,26 @@ export default class Home extends Component {
         </div>
       );
     } else {
+      const bootstrapURLKeys = {
+        key: 'AIzaSyD3B9aiCzl5NH8y4ZNwGgMyNfoPQUebMCQ',
+        center: data.center
+      };
+      const imageStyle = {
+        backgroundImage: `url(${data.image})`
+      };
+
       return (
         <div className={styles.home}>
-          <div className={styles.photo}>
-            <img
-              className={styles.photoImage}
-              src={data.activityPictureUrl}
-              title={data.activityTitle}
-              alt={data.activityTitle} />
+          <div
+            className={styles.image}
+            style={imageStyle} />
+          <div className={styles.person}>{data.name}</div>
+          <div className={styles.map}>
+            <GoogleMap
+              bootstrapURLKeys={bootstrapURLKeys}
+              center={data.center}
+              defaultZoom={15} />
           </div>
-          <div className={styles.person}>{data.customerFirstName}</div>
         </div>
       );
     }
