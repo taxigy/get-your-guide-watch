@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 import GoogleMap from 'google-map-react';
 import styles from './Home.scss';
 
